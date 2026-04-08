@@ -1,0 +1,6 @@
+export { ClockWidget } from './ClockWidget'
+export { WeatherWidget } from './WeatherWidget'
+export { QuoteWidget } from './QuoteWidget'
+export { StatsWidget } from './StatsWidget'
+export { MiniCalendarWidget } from './MiniCalendarWidget'
+export { WidgetSettings } from './WidgetSettings'
