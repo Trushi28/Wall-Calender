@@ -1,36 +1,59 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Wall Calendar
 
-## Getting Started
+A wall calendar UI built with Next.js. Think of those physical calendars with a nice photo on top — but interactive.
 
-First, run the development server:
+## What's in here
+
+- Calendar grid with date range selection (click start, click end)
+- Notes that save to IndexedDB so they stick around
+- Sidebar widgets — clock, pomodoro timer, mood tracker, weather, quotes, etc.
+- Dark/light mode with a smooth transition
+- Indian holidays marked on the calendar
+- Works on mobile too
+
+## Tech
+
+- Next.js 16 with App Router
+- TypeScript
+- Tailwind CSS
+- Framer Motion for animations
+- Dexie.js for IndexedDB
+- date-fns for dates
+
+## Running it
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open http://localhost:3000
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+For production:
+```bash
+npm run build
+npm start
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project layout
 
-## Learn More
+```
+src/
+  app/           - page.tsx and globals.css
+  components/
+    Calendar/    - the main calendar stuff
+    Widgets/     - sidebar widgets
+    UI/          - shared components
+  hooks/         - useCalendar, useNotes, useTheme, etc
+  lib/           - utilities, db setup, holidays list
+```
 
-To learn more about Next.js, take a look at the following resources:
+## Why these choices?
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**Cream colors instead of pure white** — easier on the eyes, feels more like paper.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+**IndexedDB for notes** — localStorage works but IndexedDB handles larger data better and doesn't block the thread.
 
-## Deploy on Vercel
+**Framer Motion** — spring animations feel nicer than CSS ease-in-out. Also makes exit animations way easier.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+**No backend** — this is a frontend showcase. Everything saves locally.
