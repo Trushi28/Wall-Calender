@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react'
 
-export type WidgetId = 'clock' | 'weather' | 'quote' | 'stats' | 'miniCal'
+export type WidgetId = 'clock' | 'weather' | 'quote' | 'stats' | 'miniCal' | 'pomodoro' | 'countdown' | 'mood'
 
 export interface WidgetConfig {
   id: WidgetId
@@ -13,10 +13,13 @@ export interface WidgetConfig {
 
 const defaultWidgets: WidgetConfig[] = [
   { id: 'clock', label: 'Clock', enabled: true, order: 0 },
-  { id: 'weather', label: 'Weather', enabled: true, order: 1 },
-  { id: 'quote', label: 'Quote', enabled: true, order: 2 },
-  { id: 'stats', label: 'Stats', enabled: true, order: 3 },
-  { id: 'miniCal', label: 'Mini Calendar', enabled: true, order: 4 },
+  { id: 'pomodoro', label: 'Pomodoro', enabled: true, order: 1 },
+  { id: 'mood', label: 'Mood Tracker', enabled: true, order: 2 },
+  { id: 'countdown', label: 'Countdown', enabled: true, order: 3 },
+  { id: 'weather', label: 'Weather', enabled: true, order: 4 },
+  { id: 'quote', label: 'Quote', enabled: false, order: 5 },
+  { id: 'stats', label: 'Stats', enabled: false, order: 6 },
+  { id: 'miniCal', label: 'Mini Calendar', enabled: false, order: 7 },
 ]
 
 const STORAGE_KEY = 'calendar-widget-config'

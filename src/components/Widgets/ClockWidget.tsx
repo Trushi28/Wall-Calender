@@ -22,62 +22,103 @@ export function ClockWidget() {
   const displayHours = hours % 12 || 12
   
   const pad = (n: number) => n.toString().padStart(2, '0')
+
+  // Calculate rotation for analog indicators
+  const secRotation = (seconds / 60) * 360
+  const minRotation = (minutes / 60) * 360
   
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20, scale: 0.95 }}
-      animate={{ opacity: 1, y: 0, scale: 1 }}
-      transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-      whileHover={{ y: -2 }}
-      className="bg-card/80 backdrop-blur-sm rounded-2xl p-5 shadow-lg border border-white/10 
-                 hover:shadow-xl hover:border-accent/20 transition-all duration-300"
+      initial={{ opacity: 0, y: 20, scale: 0.9, rotateX: -10 }}
+      animate={{ opacity: 1, y: 0, scale: 1, rotateX: 0 }}
+      transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+      whileHover={{ y: -4, scale: 1.02, boxShadow: '0 20px 40px rgba(0,0,0,0.15)' }}
+      className="relative bg-gradient-to-br from-card to-card/80 backdrop-blur-sm rounded-2xl p-5 
+                 shadow-lg border border-white/20 dark:border-white/10 overflow-hidden
+                 hover:border-accent/30 transition-all duration-300"
     >
-      <div className="flex items-center gap-2 mb-3">
-        <motion.div
-          animate={{ rotate: [0, 10, -10, 0] }}
-          transition={{ duration: 2, repeat: Infinity, repeatDelay: 3 }}
-        >
-          <Clock className="w-4 h-4 text-accent" />
-        </motion.div>
-        <span className="text-xs font-medium text-muted uppercase tracking-wide">Current Time</span>
+      {/* Animated background rings */}
+      <div className="absolute inset-0 overflow-hidden opacity-20">
+        <motion.div 
+          className="absolute -right-8 -top-8 w-32 h-32 rounded-full border border-accent"
+          animate={{ rotate: 360 }}
+          transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
+        />
+        <motion.div 
+          className="absolute -right-4 -top-4 w-24 h-24 rounded-full border border-accent/50"
+          animate={{ rotate: -360 }}
+          transition={{ duration: 45, repeat: Infinity, ease: 'linear' }}
+        />
       </div>
-      
-      <div className="flex items-baseline gap-1">
-        <motion.span 
-          key={`h-${displayHours}`}
-          initial={{ y: -10, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          className="text-4xl font-light text-main tabular-nums"
+
+      <div className="relative z-10">
+        <div className="flex items-center gap-2 mb-3">
+          <motion.div
+            animate={{ rotate: [0, 15, -15, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 4 }}
+          >
+            <Clock className="w-4 h-4 text-accent" />
+          </motion.div>
+          <span className="text-xs font-semibold text-muted uppercase tracking-wider">Current Time</span>
+        </div>
+        
+        <div className="flex items-baseline gap-1">
+          <motion.span 
+            key={`h-${displayHours}`}
+            initial={{ y: -20, opacity: 0, filter: 'blur(4px)' }}
+            animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+            transition={{ type: 'spring', stiffness: 300 }}
+            className="text-5xl font-extralight text-main tabular-nums"
+          >
+            {pad(displayHours)}
+          </motion.span>
+          <motion.span 
+            className="text-5xl font-extralight text-accent"
+            animate={{ opacity: [1, 0.2, 1], scale: [1, 0.95, 1] }}
+            transition={{ duration: 1, repeat: Infinity }}
+          >:</motion.span>
+          <motion.span 
+            key={`m-${minutes}`}
+            initial={{ y: -20, opacity: 0, filter: 'blur(4px)' }}
+            animate={{ y: 0, opacity: 1, filter: 'blur(0px)' }}
+            transition={{ type: 'spring', stiffness: 300 }}
+            className="text-5xl font-extralight text-main tabular-nums"
+          >
+            {pad(minutes)}
+          </motion.span>
+          <div className="flex flex-col ml-2">
+            <motion.span 
+              key={`s-${seconds}`}
+              initial={{ scale: 1.5, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="text-lg font-medium text-accent tabular-nums"
+            >
+              {pad(seconds)}
+            </motion.span>
+            <span className="text-xs font-bold text-muted">{isPM ? 'PM' : 'AM'}</span>
+          </div>
+        </div>
+        
+        {/* Mini progress bar for seconds */}
+        <div className="mt-3 h-1 bg-faint/30 rounded-full overflow-hidden">
+          <motion.div 
+            className="h-full bg-gradient-to-r from-accent to-accent-light rounded-full"
+            initial={{ width: 0 }}
+            animate={{ width: `${(seconds / 60) * 100}%` }}
+            transition={{ duration: 0.3 }}
+          />
+        </div>
+        
+        <motion.p 
+          className="text-sm text-muted mt-3 flex items-center gap-2"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.3 }}
         >
-          {pad(displayHours)}
-        </motion.span>
-        <motion.span 
-          className="text-4xl font-light text-accent"
-          animate={{ opacity: [1, 0.3, 1] }}
-          transition={{ duration: 1, repeat: Infinity }}
-        >:</motion.span>
-        <motion.span 
-          key={`m-${minutes}`}
-          initial={{ y: -10, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          className="text-4xl font-light text-main tabular-nums"
-        >
-          {pad(minutes)}
-        </motion.span>
-        <motion.span 
-          key={`s-${seconds}`}
-          initial={{ scale: 1.2, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          className="text-lg text-muted ml-1 tabular-nums"
-        >
-          {pad(seconds)}
-        </motion.span>
-        <span className="text-sm font-medium text-accent ml-2">{isPM ? 'PM' : 'AM'}</span>
+          <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+          {time.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
+        </motion.p>
       </div>
-      
-      <p className="text-sm text-muted mt-2">
-        {time.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}
-      </p>
     </motion.div>
   )
 }

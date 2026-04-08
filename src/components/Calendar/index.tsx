@@ -23,6 +23,9 @@ import {
   QuoteWidget, 
   StatsWidget, 
   MiniCalendarWidget,
+  PomodoroWidget,
+  CountdownWidget,
+  MoodTrackerWidget,
   WidgetSettings
 } from '@/components/Widgets'
 import { cn } from '@/lib/utils'
@@ -125,6 +128,9 @@ export function Calendar() {
       case 'clock': return <ClockWidget key={id} />
       case 'weather': return <WeatherWidget key={id} />
       case 'quote': return <QuoteWidget key={id} />
+      case 'pomodoro': return <PomodoroWidget key={id} />
+      case 'countdown': return <CountdownWidget key={id} />
+      case 'mood': return <MoodTrackerWidget key={id} />
       case 'stats': return (
         <StatsWidget 
           key={id}
