@@ -154,7 +154,7 @@ export function Calendar() {
   const enabledWidgets = widgets.filter(w => w.enabled)
 
   return (
-    <div className="min-h-screen bg-page flex items-center justify-center p-4 md:p-6 lg:p-8">
+    <div id="calendar-root" className="min-h-screen bg-page flex items-center justify-center p-4 md:p-6 lg:p-8">
       {/* Background pattern */}
       <div className="fixed inset-0 opacity-30 dark:opacity-10 pointer-events-none"
            style={{
