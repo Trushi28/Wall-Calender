@@ -35,9 +35,9 @@ export function CalendarGrid({
   }
 
   return (
-    <div className="px-4 pb-4">
+    <div className="px-5 pb-6">
       {/* Day headers */}
-      <div className="grid grid-cols-7 gap-1 mb-2">
+      <div className="grid grid-cols-7 gap-2 mb-3">
         {dayNames.map((name, i) => (
           <div
             key={name}
@@ -61,7 +61,7 @@ export function CalendarGrid({
           animate="center"
           exit="exit"
           transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-          className="grid grid-cols-7 gap-1"
+          className="grid grid-cols-7 gap-2"
         >
           {days.map((day, i) => (
             <DayCell

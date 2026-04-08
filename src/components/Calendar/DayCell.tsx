@@ -38,10 +38,11 @@ export function DayCell({
       onClick={onSelect}
       onDoubleClick={onDoubleClick}
       className={cn(
-        'relative w-full aspect-square flex items-center justify-center',
+        'relative w-full aspect-square flex flex-col items-center justify-center',
         'text-sm md:text-base font-medium rounded-xl',
         'focus:outline-none focus-visible:ring-2 focus-visible:ring-accent',
         'transition-colors duration-150',
+        'p-1',
         
         notCurrent && 'text-faint opacity-40',
         !notCurrent && weekend && 'text-accent font-semibold',
@@ -49,16 +50,16 @@ export function DayCell({
         
         !isSelected && !inRange && 'hover:bg-accent/10',
         inRange && 'bg-accent/15 text-accent',
-        isSelected && 'bg-gradient-to-br from-accent to-accent-dark text-white shadow-md',
-        isToday && !isSelected && 'ring-2 ring-accent/50 ring-offset-1 ring-offset-card'
+        isSelected && 'bg-gradient-to-br from-accent to-accent-dark text-white shadow-lg',
+        isToday && !isSelected && 'ring-2 ring-accent/60 ring-offset-2 ring-offset-card'
       )}
-      whileHover={{ scale: isSelected ? 1 : 1.05 }}
-      whileTap={{ scale: 0.95 }}
+      whileHover={{ scale: isSelected ? 1 : 1.08 }}
+      whileTap={{ scale: 0.92 }}
       transition={{ type: 'spring', stiffness: 400, damping: 25 }}
     >
-      {day.date}
+      <span>{day.date}</span>
       {holiday && !isSelected && (
-        <span className="absolute bottom-1 left-1/2 -translate-x-1/2 w-1 h-1 rounded-full bg-orange-500" />
+        <span className="absolute bottom-1.5 w-1.5 h-1.5 rounded-full bg-orange-500 shadow-sm" />
       )}
     </motion.button>
   )

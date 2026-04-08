@@ -178,10 +178,10 @@ export function Calendar() {
         {/* Calendar card */}
         <motion.div
           className={cn(
-            'relative w-full max-w-md mx-auto xl:mx-0',
-            'bg-card rounded-2xl overflow-hidden',
-            'shadow-2xl shadow-black/20 dark:shadow-black/50',
-            'border border-white/50 dark:border-white/10',
+            'relative w-full max-w-lg mx-auto xl:mx-0',
+            'bg-card rounded-3xl overflow-hidden',
+            'shadow-2xl shadow-black/15 dark:shadow-black/50',
+            'border border-white/60 dark:border-white/10',
             'paper-texture'
           )}
           initial={{ opacity: 0, y: 30, scale: 0.95 }}
@@ -192,7 +192,7 @@ export function Calendar() {
         >
           <SpiralBinding />
 
-          <div className="pt-5">
+          <div className="pt-6">
             <HeroImage 
               image={image} 
               onDrop={handleDrop} 
@@ -208,15 +208,17 @@ export function Calendar() {
             onNext={handleNext}
           />
 
-          <CalendarGrid
-            days={days}
-            year={year}
-            month={month}
-            selection={selection}
-            onSelect={selectDate}
-            onDayDoubleClick={openDayNotes}
-            direction={prefersReducedMotion ? 0 : direction}
-          />
+          <div className="py-2">
+            <CalendarGrid
+              days={days}
+              year={year}
+              month={month}
+              selection={selection}
+              onSelect={selectDate}
+              onDayDoubleClick={openDayNotes}
+              direction={prefersReducedMotion ? 0 : direction}
+            />
+          </div>
 
           {/* Selection info bar */}
           <AnimatePresence>
@@ -226,7 +228,7 @@ export function Calendar() {
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
                 transition={{ duration: 0.3 }}
-                className="mx-4 mb-2 rounded-xl bg-gradient-to-r from-accent/15 to-cyan-500/15 
+                className="mx-5 mb-3 rounded-xl bg-gradient-to-r from-accent/15 to-cyan-500/15 
                            border border-accent/20 overflow-hidden"
               >
                 <div className="px-4 py-3">
